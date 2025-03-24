@@ -39,24 +39,35 @@
                         <div class="card-body">
                             <div class="mb-3">
                                 <label for="" class="form-label h5">Name</label>
-                                <input value="{{old('name',$product->name)}}" type="text" class="form-control form-control-lg @error('name') is-invalid @enderror" placeholder="Name" name="name">
+                                <input value="{{old('name',$product->name)}}" type="text" class="form-control @error('name') is-invalid @enderror" placeholder="Name" name="name">
                                 @error('name')
                                 <span class="invalid-feedback">{{$message}}</span>
                                 @enderror
                             </div>
                             <div class="mb-3">
                                 <label for="" class="form-label h5">Sku</label>
-                                <input value="{{old('sku',$product->sku)}}" type="text" class="form-control form-control-lg @error('sku') is-invalid @enderror" placeholder="Sku" name="sku">
+                                <input value="{{old('sku',$product->sku)}}" type="text" class="form-control @error('sku') is-invalid @enderror" placeholder="Sku" name="sku">
                                 @error('sku')
                                 <span class="invalid-feedback">{{$message}}</span>
                                 @enderror
                             </div>
                             <div class="mb-3">
                                 <label for="" class="form-label h5">Price</label>
-                                <input value="{{old('price',$product->price)}}" type="text" class="form-control form-control-lg @error('price') is-invalid @enderror" placeholder="Price" name="price">
+                                <input value="{{old('price',$product->price)}}" type="text" class="form-control @error('price') is-invalid @enderror" placeholder="Price" name="price">
                                 @error('price')
                                 <span class="invalid-feedback">{{$message}}</span>
                                 @enderror
+                            </div>
+                            <div class="mb-2">
+                                <label for="category" class="form-label h5">Category</label>
+                                <select name="category_id" id="category" class="form-control">
+                                <option value="">Select Category</option>
+                                    @foreach ($categories as $category)
+                                    <option value="{{ $category->id }}" {{ $product->category_id == $category->id ? 'selected' : '' }}>
+                                        {{ $category->category_name }}
+                                    </option>
+                                    @endforeach
+                                </select>
                             </div>
                             <div class="mb-3">
                                 <label for="" class="form-label h5">Description</label>
@@ -64,9 +75,9 @@
                             </div>
                             <div class="mb-3">
                                 <label for="" class="form-label h5">Image</label>
-                                <input type="file" class="form-control form-control-lg " name="image" id="">
+                                <input type="file" class="form-control" name="image" id="">
                                 @if($product->image != "")
-                                <img class="w-50 my-2" src="{{asset('uploads/products/'.$product->image)}}" alt="" >
+                                <img class="w-50 my-2" src="{{asset('uploads/products/'.$product->image)}}" alt="">
                                 @endif
                             </div>
                             <div class="d-grid">

@@ -7,6 +7,7 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
+use App\Models\Category;
 
 
 class ProductController extends Controller
@@ -18,9 +19,24 @@ class ProductController extends Controller
             'products' => $products
         ]);
     }
+    public function view($id)
+    {
+        // 1. Product ko database se fetch karna
+        $product = Product::with('category')->find($id);
+
+        // 2. Agar product nahi mila toh 404 error show kare
+        if (!$product) {
+            abort(404, "Product not found");
+        }
+
+        // 3. Product ka data 'product.view' view file me bhejna
+        return view('products.view', compact('product'));
+    }
+
     public function create()
     {
-        return view('products.create');
+        $categories = Category::where('is_active', 1)->orderBy('category_name')->get();
+        return view('products.create', compact('categories'));
     }
     public function store(Request $request)
     {
@@ -28,6 +44,7 @@ class ProductController extends Controller
             'name' => 'required|min:5',
             'sku' => 'required|min:3',
             'price' => 'required|numeric',
+            'category_id' => 'required|exists:product_categories,id', // Ensure category exists
         ];
 
         if ($request->image != "") {
@@ -45,6 +62,7 @@ class ProductController extends Controller
         $product->sku = $request->sku;
         $product->price = $request->price;
         $product->description = $request->description;
+        $product->category_id = $request->category_id; // Save category ID
         $product->save();
 
         if ($request->image != "") {
@@ -63,9 +81,8 @@ class ProductController extends Controller
     public function edit($id)
     {
         $product = Product::findOrFail($id);
-        return view('products.edit', [
-            'product' => $product
-        ]);
+        $categories = Category::where('status', 1)->orderBy('category_name')->get();
+        return view('products.edit', compact('product', 'categories'));
     }
     public function update($id, Request $request)
     {
@@ -74,6 +91,7 @@ class ProductController extends Controller
             'name' => 'required|min:5',
             'sku' => 'required|min:3',
             'price' => 'required|numeric',
+            'category_id' => 'required|exists:product_categories,id',
         ];
 
         if ($request->image != "") {
@@ -90,6 +108,7 @@ class ProductController extends Controller
         $product->sku = $request->sku;
         $product->price = $request->price;
         $product->description = $request->description;
+        $product->category_id = $request->category_id; // Category Assign
         $product->save();
 
         if ($request->image != "") {
