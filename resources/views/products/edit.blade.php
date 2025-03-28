@@ -58,16 +58,32 @@
                                 <span class="invalid-feedback">{{$message}}</span>
                                 @enderror
                             </div>
-                            <div class="mb-2">
+                            <div class="mb-3">
                                 <label for="category" class="form-label h5">Category</label>
                                 <select name="category_id" id="category" class="form-control">
-                                <option value="">Select Category</option>
+                                    <option value="">Select Category</option>
                                     @foreach ($categories as $category)
                                     <option value="{{ $category->id }}" {{ $product->category_id == $category->id ? 'selected' : '' }}>
                                         {{ $category->category_name }}
                                     </option>
                                     @endforeach
                                 </select>
+                            </div>
+                            <!-- ✅ New: Product Status as Radio Buttons -->
+                            <div class="mb-3">
+                                <label class="form-label h5">Product Status</label>
+                                <div class="d-flex gap-4">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="state" value="1" id="active"
+                                            {{ $product->state == 1 ? 'checked' : '' }} style="accent-color: green; cursor: pointer;">
+                                        <label class="form-check-label fw-bold text-success" for="active" style="cursor: pointer;">Active</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="state" value="0" id="inactive"
+                                            {{ $product->state == 0 ? 'checked' : '' }} style="accent-color: red; cursor: pointer;">
+                                        <label class="form-check-label fw-bold text-danger" for="inactive" style="cursor: pointer;">Inactive</label>
+                                    </div>
+                                </div>
                             </div>
                             <div class="mb-3">
                                 <label for="" class="form-label h5">Description</label>

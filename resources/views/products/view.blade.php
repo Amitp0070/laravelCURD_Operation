@@ -49,20 +49,51 @@
             <a href="{{ route('products.index') }}" class="btn btn-lg btn-dark">Back </a>
         </div>
     </div>
-    <div class="product-card shadow-lg mb-2">
-        <h1 class="bg-dark text-white py-2" style="border-radius: 10px;">{{ $product->name }}</h1>
+    <div class="product-card shadow-sm p-4 mb-3" style="background: linear-gradient(135deg, #fdfbfb, #ebedee); border-radius: 12px; border: 1px solid #ddd;">
+    <h2 class="text-primary text-center mb-3" style="font-weight: bold;">{{ $product->name }}</h2>
 
-        {{-- Product Image --}}
-        <img src="{{asset('uploads/products/'.$product->image)}}"
-            alt="{{ $product->name }}">
-
-        {{-- Product Details --}}
-        <p><strong>Price:</strong> ${{ $product->price }}</p>
-        <p><strong>SKU:</strong> {{ $product->sku }}</p>
-        <p><strong>Category:</strong> {{ $product->category ? $product->category->category_name : 'N/A' }}</p>
-        <p><strong>Description:</strong> {{ $product->description }}</p>
-
+    <!-- Product Image -->
+    <div class="text-center">
+        <img src="{{ asset('uploads/products/'.$product->image) }}" 
+            alt="{{ $product->name }}" 
+            style="width: 80%; max-height: 300px; object-fit: cover; border-radius: 12px; border: 3px solid #e0e0e0;">
     </div>
+
+    <!-- Product Details Section -->
+    <div class="product-details mt-4 p-3 rounded" style="background: #ffffff; box-shadow: 0px 4px 8px rgba(0,0,0,0.1);">
+        <div class="d-flex align-items-center mb-3">
+            <span class="text-primary fs-5 me-2">💰</span>
+            <p class="text-muted m-0"><strong>Price:</strong> <span class="text-dark">${{ $product->price }}</span></p>
+        </div>
+        
+        <div class="d-flex align-items-center mb-3">
+            <span class="text-success fs-5 me-2">🔢</span>
+            <p class="text-muted m-0"><strong>SKU:</strong> <span class="text-dark">{{ $product->sku }}</span></p>
+        </div>
+        
+        <div class="d-flex align-items-center mb-3">
+            <span class="text-warning fs-5 me-2">📂</span>
+            <p class="text-muted m-0"><strong>Category:</strong> <span class="text-dark">{{ $product->category ? $product->category->category_name : 'N/A' }}</span></p>
+        </div>
+
+        <div class="d-flex align-items-center mb-3">
+            <span class="fs-5 me-2">🚀</span>
+            <p class="text-muted m-0"><strong>State:</strong> 
+                @if($product->state == 1)
+                    <span class="badge bg-success">Active</span>
+                @else
+                    <span class="badge bg-danger">Inactive</span>
+                @endif
+            </p>
+        </div>
+
+        <div class="d-flex align-items-start">
+            <span class="text-danger fs-5 me-2">📝</span>
+            <p class="text-muted m-0"><strong>Description:</strong> <span class="text-dark">{{ $product->description }}</span></p>
+        </div>
+    </div>
+</div>
+
 
 </body>
 

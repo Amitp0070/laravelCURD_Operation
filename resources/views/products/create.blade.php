@@ -67,6 +67,21 @@
                                 </select>
                             </div>
                             <div class="mb-3">
+                                <label class="form-label h5">Product Status</label>
+                                <div class="d-flex gap-4">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="state" value="1" id="active" checked style="accent-color: green; cursor: pointer;">
+                                        <label class="form-check-label fw-bold text-success" for="active" style="cursor: pointer;">Active</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="state" value="0" id="inactive" style="accent-color: red; cursor: pointer;">
+                                        <label class="form-check-label fw-bold text-danger" for="inactive" style="cursor: pointer;">Inactive</label>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="mb-3">
                                 <label for="" class="form-label h5">Description</label>
                                 <textarea placeholder="Description" class="form-control" name="description" cols="30" rows="5"></textarea>
                             </div>
