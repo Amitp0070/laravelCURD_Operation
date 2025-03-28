@@ -189,6 +189,7 @@
                 </div>
             </div>
         </div>
+        @include('accounts.footer')
 </body>
 
 </html>
